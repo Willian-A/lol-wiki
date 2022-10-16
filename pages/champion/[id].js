@@ -43,7 +43,7 @@ function Champion({ champion }) {
       }
 
       return (
-        <div className={styles.spell}>
+        <div className={styles.spell} key={index}>
           <div
             className={
               isSelectedSkill
