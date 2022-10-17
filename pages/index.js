@@ -7,8 +7,6 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
-import { GUI } from "three/addons/libs/lil-gui.module.min.js";
-
 import { getChampions } from "./api/getChampions";
 // import capitalize from "../utils/captilize";
 
@@ -29,9 +27,6 @@ export default function Home({ champions }) {
         0.1,
         1000
       );
-      // camera.position.x = 10;
-      // camera.position.y = -1;
-      // camera.position.z = 25;
       camera.position.x = 5;
       camera.position.y = 1;
       camera.position.z = 5;
@@ -45,7 +40,7 @@ export default function Home({ champions }) {
       // model
 
       new GLTFLoader()
-        .setPath("static/")
+        .setPath("static/models/")
         .load("heimerdinguer_blender.glb", function (gltf) {
           gltf.scene.position.setY(-0.5);
           gltf.scene.scale.set(0.01, 0.01, 0.01);
@@ -67,14 +62,11 @@ export default function Home({ champions }) {
       const environment = new RoomEnvironment();
       const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
-      // scene.background = new THREE.Color(0xbbbbbb);
       scene.environment = pmremGenerator.fromScene(environment).texture;
 
       // camera rotate
       controls = new OrbitControls(camera, renderer.domElement);
       controls.enabled = false;
-      controls.minDistance = 1;
-      controls.maxDistance = 10;
       controls.target.set(0, 0.35, 0);
       controls.update();
 
