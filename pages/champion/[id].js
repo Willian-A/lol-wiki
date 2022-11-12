@@ -1,7 +1,7 @@
 import Head from "next/head";
 
 import { getChampion } from "../api/getChampion";
-import capitalize from "../../utils/captilize";
+import capitalize from "../../utils/functions/captilize";
 
 import styles from "../../styles/Champion.module.css";
 import { useState } from "react";
