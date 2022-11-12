@@ -1,9 +1,10 @@
-export default function useDebounce(inputValue, outsideFunction) {
-  let filterTimeout;
-
-  clearTimeout(filterTimeout);
-
-  filterTimeout = setTimeout(() => {
-    outsideFunction(inputValue);
-  }, 250);
+export default function useDebounce(ousideFunction) {
+  let timeout;
+  return (...args) => {
+    const context = this;
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      ousideFunction.apply(context, args);
+    }, 250);
+  };
 }

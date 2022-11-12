@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 
 import { getChampions } from "./api/getChampions";
@@ -17,26 +17,24 @@ export default function Home({ champions }) {
     setFormatedChampionsArray(formatChampionsList(champions));
   }, [champions]);
 
-  function handleSearch({ target }) {
-    function serachChampions(search) {
-      if (search.length > 0) {
-        const allChampionsArray = formatChampionsList(champions);
-        const searchChapionsList = allChampionsArray.filter((champion) => {
-          return champion.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
-        });
-        setFormatedChampionsArray(searchChapionsList);
-      } else {
-        setFormatedChampionsArray(formatChampionsList(champions));
-      }
+  function filterSearch(search) {
+    if (search.length > 0) {
+      const allChampionsArray = formatChampionsList(champions);
+      const searchChapionsList = allChampionsArray.filter((champion) => {
+        return champion.name.toLowerCase().indexOf(search.toLowerCase()) >= 0;
+      });
+      setFormatedChampionsArray(searchChapionsList);
+    } else {
+      setFormatedChampionsArray(formatChampionsList(champions));
     }
-
-    useDebounce(target.value, serachChampions);
   }
+
+  const handleSearch = useCallback(useDebounce(filterSearch), []);
 
   return (
     <div>
       <Head>
-        <title>Next and LoL API</title>
+        <title>League of Legends Champions Wiki</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -57,7 +55,7 @@ export default function Home({ champions }) {
         <h1>Champions</h1>
         <input
           className={styles.search_bar}
-          onChange={handleSearch}
+          onChange={({ target }) => handleSearch(target.value)}
           placeholder="Pesquisar por campeões (Ex: Shen, Trundle, etc...)"
         />
         <ChampionsList
