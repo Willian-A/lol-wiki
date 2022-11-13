@@ -18,6 +18,7 @@ body {
 }
 
 body {
+  padding: 16px;
   background-color: var(--body-bg-color);
 }
 
@@ -63,3 +64,21 @@ p {
     background: black;
   }
 } */
+
+@media screen and (min-width: 768px) {
+  body {
+    padding: 24px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    padding: 16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  body {
+    padding: 0;
+  }
+}
